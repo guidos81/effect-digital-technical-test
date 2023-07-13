@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Base64Encoded;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFileRequest extends FormRequest
@@ -22,8 +23,8 @@ class StoreFileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string',
-            'file' => 'required|string',
+            'title' => ['required', 'string'],
+            'file' => ['required', 'string', 'bail', new Base64Encoded()],
         ];
     }
 }
